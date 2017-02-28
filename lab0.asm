@@ -11,10 +11,14 @@
 .486
     mov ax, @data
     mov ds, ax 
+    
     mov al, a
     add al, b ; al = a + b
-    imul al ; ax = al * al
+    imul al   ; ax = al * al
     mov bx, ax
+
+
+    ;; Знаменатель
     mov al, 3
     imul c ;; ax = 3 * C
     xchg ax, bx
