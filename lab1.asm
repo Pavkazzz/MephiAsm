@@ -1,13 +1,17 @@
 ; (5 * (a^2 + b)^2 + a * (2 * c - d^2)^2)
 ; / (4 * e^2)
+    
+
+;
+
 
 .model small
 .data 
     a dw 5
-    b dw 7
-    c dw 3
-    d dw 2
-    e dw 6
+    b dw 5
+    c dw 20
+    d dw 3
+    e dw 2
     x dw ?
     y dw ?
 .code
@@ -16,12 +20,12 @@
     mov ds, ax 
     
     mov ax, a
-    imul a    ; ax = a * a
+    mul a    ; ax = a * a
     add ax, b ; ax = a^2 + b
-    imul ax   ; ax = (a^2 + b)^2
+    mul ax   ; ax = (a^2 + b)^2
 
     mov bx, ax
-    mov al, 5
+    mov ax, 5
     mul bx   ; ax = 5 * (a^2 + b)^2
     mov cx, ax
 
@@ -31,25 +35,28 @@
     mov bx, ax
 
     mov ax, 2
-    imul c    ; ax = c*2
+    mul c    ; ax = c*2
 
     sub ax, bx ; ax = (2 * c - d^2)
-    imul ax    ; ax = (2 * c - d^2)^2
-    imul a     ; ax = a * (2 * c - d^2)^2
+    mul ax    ; ax = (2 * c - d^2)^2
+    mul a     ; ax = a * (2 * c - d^2)^2
+    mov bx, ax
+    mov ax, 3
+    mul bx     ; ax = 3 * a * (2 * c - d^2)^2
 
     add ax, cx 
     mov bx, ax
 
     ;; Знаменатель
     mov ax, e
-    imul e ;; ax = e^2
+    mul e ;; ax = e^2
 
     mov ax, 4
-    imul ax   ; ax = 4 * e^2 ???
+    mul ax   ; ax = 4 * e^2 ???
 
     xchg ax, bx
     cwd ; ax -> (dx;ax)
-    idiv bx ; частное: ax, остаток: dx
+    div bx ; частное: ax, остаток: dx
     mov x, ax
     mov y, dx
     mov ah, 4ch
