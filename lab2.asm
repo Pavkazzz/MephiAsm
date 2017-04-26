@@ -9,7 +9,7 @@
 
 .model small
 .data 
-	; num dd 60
+    ; num dd 60
     num dd 49980
     ; res dw ?
     ; num dw -1
@@ -36,25 +36,23 @@ next_byte:
 not_null:
 
 circle: 
-	xchg ax, bx
-	mul si
-	xchg ax, bx
-	xor dx, dx
-	div si
-	add bx, dx
-	or ax, ax
-	jnz circle
-	cmp bl, cl ; Сравниваем с исходным
+    xchg ax, bx
+    mul si
+    xchg ax, bx
+    div si
+    or ax, ax
+    jnz circle
+    cmp bl, cl ; Сравниваем с исходным
 
-	jnz no_poly
-	add di, 1
+    jnz no_poly
+    add di, 1
 
 no_poly:
-	
-	shr ecx, 8
+    
+    shr ecx, 8
 
-	or ecx, ecx
-	jnz next_byte
+    or ecx, ecx
+    jnz next_byte
 
 
 
